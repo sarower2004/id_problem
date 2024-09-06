@@ -2,8 +2,6 @@
     require('./db.php');
 
     
-    
-    
     if(isset($_POST['info-submit'])){
         
         $name = $_POST['name'];
@@ -16,6 +14,10 @@
         $blood = $_POST['blood_group'];
         $shift = $_POST['shift'];
         $contact = $_POST['contact'];
+
+        // echo $name, $father_name, $mother_name, $roll, $regi, $department, $session, $blood, $shift, $contact;
+        // die();
+
         // For Image Upload
         $target_dir ="uploads/";
         
@@ -28,15 +30,37 @@
 
         
         // image upload end
-        $sql = "INSERT INTO students_info (name, father, mother, contact, blood, roll, regi, department, season, shift, img) values ('$name', '$father_name', '$mother_name', '$contact' '$blood' '$roll', '$regi', '$department', '$session', '$shift', '$target_file' )";
+        $sql = "INSERT INTO students_info (
+        name, 
+        father, 
+        mother, 
+        contact, 
+        blood, 
+        roll, 
+        regi, 
+        department, 
+        season, 
+        shift, 
+        img) values (
+        '$name', 
+        '$father_name', 
+        '$mother_name', 
+        '$contact',
+        '$blood',
+        '$roll',
+        '$regi',
+        '$department',
+        '$session',
+        '$shift',
+        '$target_file')";
     
         $query= mysqli_query($conn, $sql);
     
         if($query){
             header('Location: ../index.php?success=Insert-Success');
-            }else{
-            header('Location: ../index.php?success=Insert-Error');
-            }
+        }else{
+            header('Location: ../index.php?success=Insert-Error'. mysqli_error($conn));
+        }
     }else{
         echo'Somethink is wrong!';
 
